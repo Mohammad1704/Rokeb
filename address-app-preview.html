@@ -183,8 +183,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Address App Design System Preview</title>
+    <!-- Add font support for multiple languages -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* Design System CSS */
         :root {
@@ -235,7 +238,7 @@
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Noto Sans', 'Noto Sans Bengali', 'Noto Sans Arabic', 'Noto Nastaliq Urdu', sans-serif;
             color: var(--text-dark);
             line-height: 1.5;
             background-color: white;
@@ -804,9 +807,100 @@
         .auth-switch a:hover {
             text-decoration: underline;
         }
+
+        /* Language Selector */
+        .language-selector {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 2001;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: white;
+            padding: 8px;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .language-btn {
+            background: none;
+            border: 1px solid var(--light-mint);
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: var(--small);
+            color: var(--text-medium);
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease-in-out;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .language-btn.active {
+            color: var(--deep-blue);
+            background-color: var(--light-mint);
+            font-weight: 600;
+        }
+
+        .language-btn:hover {
+            background-color: var(--light-mint);
+            color: var(--deep-blue);
+        }
+
+        /* RTL Support */
+        [dir="rtl"] .language-selector {
+            left: 16px;
+            right: auto;
+        }
+
+        [dir="rtl"] .demo-nav-inner {
+            flex-direction: row-reverse;
+        }
+
+        [dir="rtl"] .demo-menu {
+            flex-direction: row-reverse;
+        }
+
+        [dir="rtl"] .address-card-header {
+            flex-direction: row-reverse;
+        }
+
+        [dir="rtl"] .address-actions {
+            flex-direction: row-reverse;
+        }
+
+        [dir="rtl"] .form-input {
+            text-align: right;
+        }
+
+        [dir="rtl"] .forgot-password {
+            text-align: left;
+        }
+
+        /* Add specific font settings for different languages */
+        [lang="bn"] {
+            font-family: 'Noto Sans Bengali', sans-serif;
+        }
+
+        [lang="ar"] {
+            font-family: 'Noto Sans Arabic', sans-serif;
+        }
+
+        [lang="ur"] {
+            font-family: 'Noto Nastaliq Urdu', sans-serif;
+        }
     </style>
 </head>
 <body>
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <button class="language-btn active" data-lang="en" onclick="switchLanguage('en')">EN</button>
+        <button class="language-btn" data-lang="bn" onclick="switchLanguage('bn')">বাংলা</button>
+        <button class="language-btn" data-lang="ur" onclick="switchLanguage('ur')">اردو</button>
+        <button class="language-btn" data-lang="hi" onclick="switchLanguage('hi')">हिंदी</button>
+        <button class="language-btn" data-lang="ar" onclick="switchLanguage('ar')">العربية</button>
+    </div>
+
     <!-- Login Screen -->
     <div id="login-screen" class="auth-screen">
         <div class="auth-container">
@@ -816,47 +910,49 @@
             </div>
 
             <div class="social-login">
-                <button class="social-btn google">
+                <button class="social-btn google" data-translate="googleSignIn">
                     <svg class="svg-icon" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
                         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"></path>
                         <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"></path>
                         <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"></path>
                         <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"></path>
                     </svg>
-                    Google
+                    Sign in with Google
                 </button>
-                <button class="social-btn facebook">
+                <button class="social-btn facebook" data-translate="facebookSignIn">
                     <svg class="svg-icon" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
                         <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                     </svg>
-                    Facebook
+                    Sign in with Facebook
                 </button>
             </div>
 
             <div class="divider">
-                <span>or</span>
+                <span data-translate="or">or</span>
             </div>
 
             <form class="auth-form">
+                <!-- Login form elements -->
                 <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-input" placeholder="Enter your email">
+                    <label class="form-label" data-translate="email">Email</label>
+                    <input type="email" class="form-input" data-translate-placeholder="enterEmail" placeholder="Enter your email">
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-input" placeholder="Enter your password">
+                    <label class="form-label" data-translate="password">Password</label>
+                    <input type="password" class="form-input" data-translate-placeholder="enterPassword" placeholder="Enter your password">
                 </div>
 
                 <div class="forgot-password">
-                    <a href="#" onclick="showForgotPassword()">Forgot password?</a>
+                    <a href="#" onclick="showForgotPassword()" data-translate="forgotPassword">Forgot password?</a>
                 </div>
 
-                <button type="submit" class="auth-btn">Sign In</button>
+                <button type="submit" class="auth-btn" data-translate="signInBtn">Sign In</button>
             </form>
 
             <div class="auth-switch">
-                Don't have an account? <a href="#" onclick="showSignup()">Sign up</a>
+                <span data-translate="dontHaveAccount">Don't have an account?</span>
+                <a href="#" onclick="showSignup()" data-translate="signUp">Sign up</a>
             </div>
         </div>
     </div>
@@ -1596,6 +1692,438 @@
                 }, 3000);
             });
         });
+
+        // Language translations
+        const translations = {
+            en: {
+                welcome: "Welcome Back",
+                signIn: "Sign in to continue to AddressBook",
+                email: "Email",
+                password: "Password",
+                forgotPassword: "Forgot password?",
+                signInBtn: "Sign In",
+                noAccount: "Don't have an account?",
+                signUp: "Sign up",
+                createAccount: "Create Account",
+                joinToday: "Join AddressBook today",
+                fullName: "Full Name",
+                confirmPassword: "Confirm Password",
+                createAccountBtn: "Create Account",
+                haveAccount: "Already have an account?",
+                signInLink: "Sign in",
+                resetPassword: "Reset Password",
+                resetInstructions: "Enter your email to reset your password",
+                sendResetLink: "Send Reset Link",
+                rememberPassword: "Remember your password?",
+                yourAddresses: "Your Saved Addresses",
+                changesSaved: "Your changes have been saved successfully!",
+                home: "Home",
+                work: "Work",
+                parents: "Parents",
+                addNewAddress: "Add New Address",
+                deliveryInstructions: "Delivery Instructions",
+                leaveWithDoorman: "Please leave package with doorman if not home. Ring bell twice.",
+                leaveOnPorch: "Leave packages on back porch if no one answers. Do not ring doorbell after 8pm.",
+                "or": "or",
+                "enterEmail": "Enter your email",
+                "enterPassword": "Enter your password",
+                "dontHaveAccount": "Don't have an account?",
+                "signUp": "Sign up",
+                "googleSignIn": "Sign in with Google",
+                "facebookSignIn": "Sign in with Facebook"
+            },
+            bn: {
+                welcome: "আবার স্বাগতম",
+                signIn: "AddressBook এ প্রবেশ করতে সাইন ইন করুন",
+                email: "ইমেইল",
+                password: "পাসওয়ার্ড",
+                forgotPassword: "পাসওয়ার্ড ভুলে গেছেন?",
+                signInBtn: "সাইন ইন",
+                noAccount: "অ্যাকাউন্ট নেই?",
+                signUp: "সাইন আপ",
+                createAccount: "অ্যাকাউন্ট তৈরি করুন",
+                joinToday: "আজই AddressBook এ যোগ দিন",
+                fullName: "পূর্ণ নাম",
+                confirmPassword: "পাসওয়ার্ড নিশ্চিত করুন",
+                createAccountBtn: "অ্যাকাউন্ট তৈরি করুন",
+                haveAccount: "অ্যাকাউন্ট আছে?",
+                signInLink: "সাইন ইন",
+                resetPassword: "পাসওয়ার্ড রিসেট",
+                resetInstructions: "পাসওয়ার্ড রিসেট করতে আপনার ইমেইল দিন",
+                sendResetLink: "রিসেট লিংক পাঠান",
+                rememberPassword: "পাসওয়ার্ড মনে আছে?",
+                yourAddresses: "আপনার সংরক্ষিত ঠিকানা",
+                changesSaved: "আপনার পরিবর্তনগুলি সফলভাবে সংরক্ষিত হয়েছে!",
+                home: "বাড়ি",
+                work: "কাজ",
+                parents: "পিতামাতা",
+                addNewAddress: "নতুন ঠিকানা যোগ করুন",
+                deliveryInstructions: "ডেলিভারি নির্দেশনা",
+                leaveWithDoorman: "বাড়িতে না থাকলে দরজার রক্ষকের কাছে প্যাকেজ রেখে দিন। দুবার বেল বাজান।",
+                leaveOnPorch: "কেউ উত্তর না দিলে পিছনের বারান্দায় প্যাকেজ রেখে দিন। রাত ৮টার পর বেল বাজাবেন না।",
+                "or": "অথবা",
+                "enterEmail": "আপনার ইমেইল লিখুন",
+                "enterPassword": "আপনার পাসওয়ার্ড লিখুন",
+                "signUp": "সাইন আপ",
+                "googleSignIn": "Google দিয়ে সাইন ইন করুন",
+                "facebookSignIn": "Facebook দিয়ে সাইন ইন করুন"
+            },
+            ur: {
+                welcome: "دوبارہ خوش آمدید",
+                signIn: "AddressBook میں داخل ہونے کے لیے سائن ان کریں",
+                email: "ای میل",
+                password: "پاس ورڈ",
+                forgotPassword: "پاس ورڈ بھول گئے؟",
+                signInBtn: "سائن ان",
+                noAccount: "اکاؤنٹ نہیں ہے؟",
+                signUp: "سائن اپ",
+                createAccount: "اکاؤنٹ بنائیں",
+                joinToday: "آج ہی AddressBook میں شامل ہوں",
+                fullName: "مکمل نام",
+                confirmPassword: "پاس ورڈ کی تصدیق کریں",
+                createAccountBtn: "اکاؤنٹ بنائیں",
+                haveAccount: "پہلے سے اکاؤنٹ ہے؟",
+                signInLink: "سائن ان",
+                resetPassword: "پاس ورڈ ری سیٹ",
+                resetInstructions: "پاس ورڈ ری سیٹ کرنے کے لیے اپنی ای میل درج کریں",
+                sendResetLink: "ری سیٹ لنک بھیجیں",
+                rememberPassword: "پاس ورڈ یاد ہے؟",
+                yourAddresses: "آپ کے محفوظ پتے",
+                changesSaved: "آپ کی تبدیلیاں کامیابی سے محفوظ ہو گئی ہیں!",
+                home: "گھر",
+                work: "دفتر",
+                parents: "والدین",
+                addNewAddress: "نیا پتہ شامل کریں",
+                deliveryInstructions: "ڈیلیوری کی ہدایات",
+                leaveWithDoorman: "گھر پر نہ ہونے کی صورت میں ڈور مین کے پاس پیکیج چھوڑ دیں۔ دو بار گھنٹی بجائیں۔",
+                leaveOnPorch: "کوئی جواب نہ دینے پر پچھلی وارنڈا پر پیکیج چھوڑ دیں۔ رات 8 بجے کے بعد گھنٹی نہ بجائیں۔",
+                "or": "یا",
+                "enterEmail": "اپنا ای میل درج کریں",
+                "enterPassword": "اپنا پاس ورڈ درج کریں",
+                "signUp": "سائن اپ",
+                "googleSignIn": "Google کے ساتھ سائن ان کریں",
+                "facebookSignIn": "Facebook کے ساتھ سائن ان کریں"
+            },
+            hi: {
+                welcome: "वापस आने पर स्वागत है",
+                signIn: "AddressBook में प्रवेश करने के लिए साइन इन करें",
+                email: "ईमेल",
+                password: "पासवर्ड",
+                forgotPassword: "पासवर्ड भूल गए?",
+                signInBtn: "साइन इन",
+                noAccount: "खाता नहीं है?",
+                signUp: "साइन अप",
+                createAccount: "खाता बनाएं",
+                joinToday: "आज ही AddressBook में शामिल हों",
+                fullName: "पूरा नाम",
+                confirmPassword: "पासवर्ड की पुष्टि करें",
+                createAccountBtn: "खाता बनाएं",
+                haveAccount: "पहले से खाता है?",
+                signInLink: "साइन इन",
+                resetPassword: "पासवर्ड रीसेट",
+                resetInstructions: "पासवर्ड रीसेट करने के लिए अपना ईमेल दर्ज करें",
+                sendResetLink: "रीसेट लिंक भेजें",
+                rememberPassword: "पासवर्ड याद है?",
+                yourAddresses: "आपके सहेजे गए पते",
+                changesSaved: "आपके परिवर्तन सफलतापूर्वक सहेजे गए हैं!",
+                home: "घर",
+                work: "कार्यालय",
+                parents: "माता-पिता",
+                addNewAddress: "नया पता जोड़ें",
+                deliveryInstructions: "डिलीवरी निर्देश",
+                leaveWithDoorman: "घर पर न होने की स्थिति में दरबान के पास पैकेज छोड़ दें। दो बार घंटी बजाएं।",
+                leaveOnPorch: "कोई जवाब न देने पर पिछली बरामदे पर पैकेज छोड़ दें। रात 8 बजे के बाद घंटी न बजाएं।",
+                "or": "या",
+                "enterEmail": "अपना ईमेल दर्ज करें",
+                "enterPassword": "अपना पासवर्ड दर्ज करें",
+                "signUp": "साइन अप",
+                "googleSignIn": "Google से साइन इन करें",
+                "facebookSignIn": "Facebook से साइन इन करें"
+            },
+            ar: {
+                welcome: "مرحباً بعودتك",
+                signIn: "سجل دخول للوصول إلى AddressBook",
+                email: "البريد الإلكتروني",
+                password: "كلمة المرور",
+                forgotPassword: "نسيت كلمة المرور؟",
+                signInBtn: "تسجيل الدخول",
+                noAccount: "ليس لديك حساب؟",
+                signUp: "إنشاء حساب",
+                createAccount: "إنشاء حساب",
+                joinToday: "انضم إلى AddressBook اليوم",
+                fullName: "الاسم الكامل",
+                confirmPassword: "تأكيد كلمة المرور",
+                createAccountBtn: "إنشاء حساب",
+                haveAccount: "لديك حساب بالفعل؟",
+                signInLink: "تسجيل الدخول",
+                resetPassword: "إعادة تعيين كلمة المرور",
+                resetInstructions: "أدخل بريدك الإلكتروني لإعادة تعيين كلمة المرور",
+                sendResetLink: "إرسال رابط إعادة التعيين",
+                rememberPassword: "تذكرت كلمة المرور؟",
+                yourAddresses: "عناوينك المحفوظة",
+                changesSaved: "تم حفظ تغييراتك بنجاح!",
+                home: "المنزل",
+                work: "العمل",
+                parents: "الوالدان",
+                addNewAddress: "إضافة عنوان جديد",
+                deliveryInstructions: "تعليمات التوصيل",
+                leaveWithDoorman: "اترك الطرد مع البواب إذا لم يكن أحد في المنزل. اضغط على الجرس مرتين.",
+                leaveOnPorch: "اترك الطرود على الشرفة الخلفية إذا لم يرد أحد. لا تضغط على الجرس بعد الساعة 8 مساءً.",
+                "or": "أو",
+                "enterEmail": "أدخل بريدك الإلكتروني",
+                "enterPassword": "أدخل كلمة المرور",
+                "dontHaveAccount": "ليس لديك حساب؟",
+                "signUp": "إنشاء حساب",
+                "googleSignIn": "تسجيل الدخول باستخدام Google",
+                "facebookSignIn": "تسجيل الدخول باستخدام Facebook"
+            }
+        };
+
+        // External API translation function using Azure Translator
+        async function translateWithAPI(text, targetLang) {
+            const endpoint = 'https://api.cognitive.microsofttranslator.com/';
+            const apiKey = 'Fup1pHP76wmYwWPtYCiUcvlzl9OuDHxNW17GkJpnMct35CZWlnL8JQQJ99BDACfhMk5XJ3w3AAAbACOGhlKM';
+            const location = 'swedencentral';
+
+            try {
+                const response = await fetch(
+                    `${endpoint}/translate?api-version=3.0&to=${targetLang}`, {
+                        method: 'POST',
+                        headers: {
+                            'Ocp-Apim-Subscription-Key': apiKey,
+                            'Ocp-Apim-Subscription-Region': location,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify([{
+                            text: text
+                        }])
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                if (data && data[0] && data[0].translations && data[0].translations[0]) {
+                    return data[0].translations[0].text;
+                }
+
+                // Fallback to local translations if API fails
+                if (translations[targetLang] && translations[targetLang][text]) {
+                    console.log('Using local translation fallback');
+                    return translations[targetLang][text];
+                }
+
+                return text;
+            } catch (error) {
+                console.error('Azure Translation API error:', error);
+                
+                // Fallback to local translations if API fails
+                if (translations[targetLang] && translations[targetLang][text]) {
+                    console.log('Using local translation fallback after API error');
+                    return translations[targetLang][text];
+                }
+                return text;
+            }
+        }
+
+        // Update language codes for Azure Translator
+        const languageMapping = {
+            'en': 'en',
+            'bn': 'bn-BD',  // Bengali (Bangladesh)
+            'ur': 'ur',     // Urdu
+            'hi': 'hi',     // Hindi
+            'ar': 'ar'      // Arabic
+        };
+
+        // Cache for API translations to avoid redundant calls
+        const translationCache = {};
+
+        // Get translation with caching
+        async function getTranslation(text, lang) {
+            const cacheKey = `${text}_${lang}`;
+            
+            // Check if translation is in cache
+            if (translationCache[cacheKey]) {
+                return translationCache[cacheKey];
+            }
+            
+            // Not in cache, get from API
+            const translation = await translateWithAPI(text, lang);
+            
+            // Cache the result
+            translationCache[cacheKey] = translation;
+            
+            return translation;
+        }
+
+        // Updated language switching with Azure Translator
+        async function switchLanguage(lang) {
+            console.log("Switching to language:", lang);
+            
+            // Show loading indicator
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.id = 'translation-loading';
+            loadingIndicator.style.cssText = 'position:fixed;top:80px;right:16px;background:rgba(0,0,0,0.7);color:white;padding:8px 16px;border-radius:4px;z-index:9999;';
+            loadingIndicator.textContent = 'Translating...';
+            document.body.appendChild(loadingIndicator);
+            
+            // Update document language and direction
+            document.documentElement.lang = lang;
+            document.documentElement.dir = ['ar', 'ur'].includes(lang) ? 'rtl' : 'ltr';
+            
+            // Update active language button
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            try {
+                // Collect all translatable elements
+                const translatableElements = document.querySelectorAll('[data-translate]');
+                
+                // Translate all elements with Azure API
+                const translationPromises = [];
+                
+                translatableElements.forEach(element => {
+                    const key = element.dataset.translate;
+                    
+                    // Skip translation if the source text is empty
+                    if (!key) return;
+                    
+                    // Add to promises
+                    const translationPromise = getTranslation(key, languageMapping[lang] || lang).then(translatedText => {
+                        element.textContent = translatedText;
+                    });
+                    
+                    translationPromises.push(translationPromise);
+                });
+                
+                // Handle placeholder translations
+                const placeholderElements = document.querySelectorAll('[data-translate-placeholder]');
+                
+                placeholderElements.forEach(element => {
+                    const key = element.dataset.translatePlaceholder;
+                    
+                    // Skip translation if the source text is empty
+                    if (!key) return;
+                    
+                    // Add to promises
+                    const translationPromise = getTranslation(key, languageMapping[lang] || lang).then(translatedText => {
+                        element.placeholder = translatedText;
+                    });
+                    
+                    translationPromises.push(translationPromise);
+                });
+                
+                // Wait for all translations to complete
+                await Promise.all(translationPromises);
+                
+                // Update layout direction for RTL languages
+                const container = document.querySelector('.auth-container');
+                if (container) {
+                    container.style.textAlign = ['ar', 'ur'].includes(lang) ? 'right' : 'left';
+                }
+
+                // Apply language-specific font family
+                document.body.setAttribute('lang', lang);
+                
+            } catch (error) {
+                console.error('Error during language switch:', error);
+                // Show error message to user
+                const errorToast = document.createElement('div');
+                errorToast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(231,76,60,0.9);color:white;padding:12px 24px;border-radius:4px;z-index:9999;';
+                errorToast.textContent = 'Translation failed. Please try again later.';
+                document.body.appendChild(errorToast);
+                setTimeout(() => errorToast.remove(), 5000);
+            } finally {
+                // Remove loading indicator
+                document.body.removeChild(loadingIndicator);
+            }
+        }
+
+        // Add data-translate attributes to elements when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add unique keys to all elements that need translation
+            const elementsToTranslate = [
+                { selector: '#login-screen .auth-title', key: 'welcome' },
+                { selector: '#login-screen .auth-subtitle', key: 'signIn' },
+                { selector: 'label[for="email"]', key: 'email' },
+                { selector: 'label[for="password"]', key: 'password' },
+                { selector: '.forgot-password a', key: 'forgotPassword' },
+                { selector: '#login-screen .auth-btn', key: 'signInBtn' },
+                { selector: '#login-screen .auth-switch a', key: 'signUp' },
+                { selector: '#signup-screen .auth-title', key: 'createAccount' },
+                { selector: '#signup-screen .auth-subtitle', key: 'joinToday' },
+                { selector: 'label[for="fullName"]', key: 'fullName' },
+                { selector: 'label[for="confirmPassword"]', key: 'confirmPassword' },
+                { selector: '#signup-screen .auth-btn', key: 'createAccountBtn' },
+                { selector: '#signup-screen .auth-switch a', key: 'signInLink' },
+                { selector: '#forgot-password-screen .auth-title', key: 'resetPassword' },
+                { selector: '#forgot-password-screen .auth-subtitle', key: 'resetInstructions' },
+                { selector: '#forgot-password-screen .auth-btn', key: 'sendResetLink' },
+                { selector: '#forgot-password-screen .auth-switch a', key: 'signInLink' },
+                { selector: '.example-title', key: 'yourAddresses' },
+                { selector: '.address-name', key: 'home' },
+                { selector: '.add-address-btn', key: 'addNewAddress' }
+            ];
+            
+            // Set data-translate attributes
+            elementsToTranslate.forEach(item => {
+                const element = document.querySelector(item.selector);
+                if (element) {
+                    element.setAttribute('data-translate', item.key);
+                }
+            });
+            
+            // Set text content for elements that need special handling
+            const noAccount = document.querySelector('#login-screen .auth-switch');
+            if (noAccount) {
+                noAccount.firstChild.textContent = '';
+                const textNode = document.createTextNode(translations.en.noAccount + ' ');
+                noAccount.insertBefore(textNode, noAccount.firstChild);
+            }
+            
+            // Initialize with English
+            switchLanguage('en');
+        });
+        
+        // Instructions for implementing a real translation API:
+        /*
+        To use Google Cloud Translation API:
+        1. Create a Google Cloud account and project
+        2. Enable the Cloud Translation API
+        3. Create an API key with appropriate restrictions
+        4. Replace the mock API call with something like:
+        
+        async function translateWithAPI(text, targetLang) {
+            const apiKey = 'YOUR_API_KEY';
+            try {
+                const response = await fetch(
+                    `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            q: text,
+                            target: targetLang,
+                            format: 'text'
+                        })
+                    }
+                );
+                
+                const data = await response.json();
+                if (data.data && data.data.translations && data.data.translations.length > 0) {
+                    return data.data.translations[0].translatedText;
+                }
+                return text;
+            } catch (error) {
+                console.error('Translation API error:', error);
+                return text;
+            }
+        }
+        */
     </script>
 </body>
 </html>
