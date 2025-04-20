@@ -61,18 +61,10 @@ async function switchLanguage(lang) {
 // Form handling functions
 function handleLogin(event) {
     event.preventDefault();
-    const form = event.target;
-    const email = form.querySelector('input[type="email"]').value;
-    const password = form.querySelector('input[type="password"]').value;
-
-    // Add your login logic here
-    console.log('Login attempt:', { email, password });
     
-    // Show success message and redirect
-    showMessage('Login successful!', 'success');
-    setTimeout(() => {
-        window.location.href = 'index.html';
-    }, 1500);
+    // Bypass login for testing
+    console.log('Login bypassed for testing');
+    window.location.href = 'address-app-preview.html';
 }
 
 function handleSignup(event) {
