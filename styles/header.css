@@ -1,0 +1,231 @@
+/* Header and Navigation Styles */
+.demo-nav {
+    background: var(--primary-blue);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-md);
+}
+
+.demo-nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.demo-logo {
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+    z-index: 102;
+}
+
+.demo-logo a {
+    color: white;
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+}
+
+.demo-logo a:hover {
+    opacity: 0.9;
+}
+
+/* Burger Menu Button */
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 102;
+}
+
+.burger-menu:focus {
+    outline: none;
+}
+
+.burger-line {
+    width: 30px;
+    height: 3px;
+    background: white;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    transform-origin: 1px;
+}
+
+/* Menu Open State */
+.burger-menu.open .burger-line:first-child {
+    transform: rotate(45deg);
+    background: white;
+}
+
+.burger-menu.open .burger-line:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.burger-menu.open .burger-line:nth-child(3) {
+    transform: rotate(-45deg);
+    background: white;
+}
+
+.demo-menu {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.demo-menu-item {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.demo-menu-item:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.demo-menu-item.active {
+    color: white;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Language Selector */
+.language-selector {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    background: white;
+    padding: 12px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    z-index: 101;
+}
+
+.language-btn {
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-medium);
+    transition: all var(--transition-fast);
+}
+
+.language-btn:hover {
+    color: var(--text-dark);
+    background: var(--background-light);
+}
+
+.language-btn.active {
+    background: var(--accent-teal);
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .burger-menu {
+        display: flex;
+    }
+
+    .demo-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--primary-blue);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        z-index: 101;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .demo-menu.open {
+        display: flex;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .demo-menu-item {
+        font-size: 24px;
+        padding: 16px 32px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+    }
+
+    .demo-menu.open .demo-menu-item {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .demo-menu-item:nth-child(1) { transition-delay: 0.1s; }
+    .demo-menu-item:nth-child(2) { transition-delay: 0.2s; }
+    .demo-menu-item:nth-child(3) { transition-delay: 0.3s; }
+    .demo-menu-item:nth-child(4) { transition-delay: 0.4s; }
+
+    .language-selector {
+        position: static;
+        justify-content: center;
+        margin: 16px auto;
+        max-width: fit-content;
+    }
+}
+
+/* RTL Support */
+[dir="rtl"] .demo-menu {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .language-selector {
+    left: 20px;
+    right: auto;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .demo-nav {
+        background: #1a2634;
+    }
+
+    .language-selector {
+        background: #2c3e50;
+    }
+
+    .language-btn {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .language-btn:hover {
+        color: white;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .language-btn.active {
+        background: var(--accent-teal);
+        color: white;
+    }
+} 
