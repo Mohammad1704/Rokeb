@@ -261,4 +261,131 @@
         width: 100%;
         justify-content: space-between;
     }
+}
+
+/* Delivery Preview Screen */
+.delivery-preview-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.delivery-preview-content {
+    position: relative;
+    background: white;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 32px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    animation: slideUp 0.3s ease;
+}
+
+.delivery-preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.delivery-preview-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--primary-blue);
+}
+
+.close-preview {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.close-preview:hover {
+    background: var(--background-light);
+}
+
+.delivery-preview-section {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: var(--background-light);
+    border-radius: var(--radius-md);
+}
+
+.delivery-preview-section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+.delivery-preview-info {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.delivery-preview-label {
+    color: var(--text-medium);
+    font-size: 14px;
+}
+
+.delivery-preview-value {
+    color: var(--text-dark);
+    font-size: 14px;
+}
+
+.delivery-instructions-preview {
+    background: white;
+    padding: 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    margin-top: 12px;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Show the preview screen when active */
+.delivery-preview-screen.active {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .delivery-preview-content {
+        margin: 20px;
+        padding: 24px;
+    }
+
+    .delivery-preview-info {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .delivery-preview-label {
+        color: var(--text-medium);
+        margin-bottom: 4px;
+    }
 } 

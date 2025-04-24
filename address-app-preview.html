@@ -436,32 +436,57 @@
         
         // Delivery view functionality
         function showDeliveryView(addressId) {
-            const modal = document.getElementById('delivery-view-screen');
+            const previewScreen = document.getElementById('delivery-preview-screen');
             
-            // Customize content based on the address ID
+            // Set the preview content based on the address ID
             if (addressId === 'home-address') {
-                document.getElementById('delivery-address').textContent = '123 Main Street, Apt 4B';
-                document.getElementById('delivery-city-state').textContent = 'New York, NY 10001';
-                document.getElementById('delivery-country').textContent = 'United States';
-                document.getElementById('delivery-name').textContent = 'John Smith';
-                document.getElementById('delivery-phone').textContent = '(212) 555-1234';
+                document.getElementById('preview-name').textContent = 'John Smith';
+                document.getElementById('preview-phone').textContent = '(212) 555-1234';
+                document.getElementById('preview-street').textContent = '123 Main Street, Apt 4B';
+                document.getElementById('preview-city-state').textContent = 'New York, NY 10001';
+                document.getElementById('preview-country').textContent = 'United States';
+                document.getElementById('preview-instructions').textContent = 'Please leave package with doorman if not home. Ring bell twice.';
             } else if (addressId === 'work-address') {
-                document.getElementById('delivery-address').textContent = '456 Business Ave, Floor 22';
-                document.getElementById('delivery-city-state').textContent = 'New York, NY 10022';
-                document.getElementById('delivery-country').textContent = 'United States';
-                document.getElementById('delivery-name').textContent = 'John Smith';
-                document.getElementById('delivery-phone').textContent = '(212) 555-6789';
+                document.getElementById('preview-name').textContent = 'John Smith';
+                document.getElementById('preview-phone').textContent = '(212) 555-6789';
+                document.getElementById('preview-street').textContent = '456 Business Ave, Floor 22';
+                document.getElementById('preview-city-state').textContent = 'New York, NY 10022';
+                document.getElementById('preview-country').textContent = 'United States';
+                document.getElementById('preview-instructions').textContent = '';
             } else if (addressId === 'parents-address') {
-                document.getElementById('delivery-address').textContent = '789 Suburban Drive';
-                document.getElementById('delivery-city-state').textContent = 'Westchester, NY 10583';
-                document.getElementById('delivery-country').textContent = 'United States';
-                document.getElementById('delivery-name').textContent = 'Robert & Mary Smith';
-                document.getElementById('delivery-phone').textContent = '(914) 555-4321';
+                document.getElementById('preview-name').textContent = 'Robert & Mary Smith';
+                document.getElementById('preview-phone').textContent = '(914) 555-4321';
+                document.getElementById('preview-street').textContent = '789 Suburban Drive';
+                document.getElementById('preview-city-state').textContent = 'Westchester, NY 10583';
+                document.getElementById('preview-country').textContent = 'United States';
+                document.getElementById('preview-instructions').textContent = 'Leave packages on back porch if no one answers. Do not ring doorbell after 8pm.';
             }
             
-            // Show modal
-            modal.style.display = 'block';
+            // Show the preview screen with animation
+            previewScreen.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
         }
+        
+        // Add close preview function
+        function closeDeliveryPreview() {
+            const previewScreen = document.getElementById('delivery-preview-screen');
+            previewScreen.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+        
+        // Close preview when clicking outside
+        document.getElementById('delivery-preview-screen').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeDeliveryPreview();
+            }
+        });
+        
+        // Close preview with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && document.getElementById('delivery-preview-screen').classList.contains('active')) {
+                closeDeliveryPreview();
+            }
+        });
         
         // Add address button functionality
         document.querySelector('.add-address-btn').addEventListener('click', function() {
@@ -481,11 +506,6 @@
         // Close share modal
         document.getElementById('close-share-modal').addEventListener('click', function() {
             document.getElementById('share-modal').style.display = 'none';
-        });
-        
-        // Close delivery view
-        document.getElementById('close-delivery-view').addEventListener('click', function() {
-            document.getElementById('delivery-view-screen').style.display = 'none';
         });
         
         // Geolocation functionality
