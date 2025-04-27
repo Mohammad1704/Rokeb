@@ -127,4 +127,16 @@ function showMessage(message, type = 'info') {
 document.addEventListener('DOMContentLoaded', () => {
     const savedLanguage = localStorage.getItem('preferredLanguage') || 'en';
     switchLanguage(savedLanguage);
+});
+
+// Global logout handler using event delegation for dynamic menus
+document.addEventListener('click', function(e) {
+    const logoutBtn = e.target.closest('#logout-btn');
+    if (logoutBtn) {
+        e.preventDefault();
+        fetch('/auth/logout', { method: 'GET', credentials: 'include' })
+            .then(() => {
+                window.location.href = 'login.html';
+            });
+    }
 }); 
