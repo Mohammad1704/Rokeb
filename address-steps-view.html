@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Delivery Steps - AddressBook</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/address-app.css">
+    <link rel="stylesheet" href="styles/icons.css">
+    <link rel="stylesheet" href="styles/header.css">
+</head>
+<body>
+    <!-- Main Navigation -->
+    <div class="demo-nav">
+        <div class="demo-nav-inner">
+            <div class="demo-logo">
+                <a href="address-app-preview.html">AddressBook</a>
+            </div>
+            <a href="address-app-preview.html" class="btn btn-secondary" style="margin-left:auto;">Back</a>
+        </div>
+    </div>
+
+    <!-- Steps View Section -->
+    <div class="address-steps-view" style="max-width:600px;margin:40px auto 0;padding:0 20px;">
+        <h1 class="example-title" style="margin-bottom:24px;">Delivery Instructions</h1>
+        <div class="address-details" style="margin-bottom:32px;">
+            <div class="address-name" style="font-weight:600;font-size:1.2em;">Home</div>
+            <div class="address-line">John Smith</div>
+            <div class="address-line">123 Main Street, Apt 4B</div>
+            <div class="address-line">New York, NY 10001</div>
+            <div class="address-line">United States</div>
+            <div class="address-line">(212) 555-1234</div>
+        </div>
+        <!-- Steps List -->
+        <div class="steps-list">
+            <div class="step-container" style="border:1px solid var(--light-mint);border-radius:var(--radius-md);padding:16px;margin-bottom:24px;">
+                <div style="display:flex;align-items:center;margin-bottom:12px;">
+                    <div style="background-color:var(--deep-blue);color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-right:8px;">1</div>
+                    <div style="font-weight:600;">Go to street alhlibe to the yellow building</div>
+                </div>
+                <div class="media-preview" style="background-color:var(--warm-gray);border-radius:var(--radius-md);padding:8px;display:flex;align-items:center;justify-content:center;">
+                    <img src="/api/placeholder/300/200" alt="Street with yellow building" style="max-width:100%;border-radius:var(--radius-sm);display:block;" />
+                </div>
+            </div>
+            <div class="step-container" style="border:1px solid var(--light-mint);border-radius:var(--radius-md);padding:16px;margin-bottom:24px;">
+                <div style="display:flex;align-items:center;margin-bottom:12px;">
+                    <div style="background-color:var(--deep-blue);color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-right:8px;">2</div>
+                    <div style="font-weight:600;">Go to floor 2 and place the order on door 9</div>
+                </div>
+                <div class="media-preview" style="background-color:var(--warm-gray);border-radius:var(--radius-md);padding:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                    <div style="position:relative;width:100%;">
+                        <img src="/api/placeholder/300/200" alt="Building hallway" style="max-width:100%;border-radius:var(--radius-sm);display:block;" />
+                        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background-color:rgba(0,0,0,0.6);border-radius:50%;width:50px;height:50px;display:flex;align-items:center;justify-content:center;">
+                            <svg class="svg-icon" viewBox="0 0 24 24" style="width:24px;height:24px;fill:white;stroke:white;">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                        </div>
+                    </div>
+                    <div style="color:var(--text-medium);font-size:var(--small);margin-top:8px;">Video (0:48)</div>
+                </div>
+            </div>
+            <div class="step-container" style="border:1px solid var(--light-mint);border-radius:var(--radius-md);padding:16px;margin-bottom:24px;">
+                <div style="display:flex;align-items:center;margin-bottom:12px;">
+                    <div style="background-color:var(--deep-blue);color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-right:8px;">3</div>
+                    <div style="font-weight:600;">If it's food, leave it inside the heating box</div>
+                </div>
+                <div class="media-preview" style="background-color:var(--warm-gray);border-radius:var(--radius-md);padding:8px;display:flex;align-items:center;justify-content:center;">
+                    <img src="/api/placeholder/300/200" alt="Heating box" style="max-width:100%;border-radius:var(--radius-sm);display:block;" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Replace all placeholder images when the page loads
+        window.addEventListener('load', function() {
+            function generatePlaceholderImage(width, height, text = '') {
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#f8f9fa';
+                ctx.fillRect(0, 0, width, height);
+                ctx.strokeStyle = '#dee2e6';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(1, 1, width - 2, height - 2);
+                ctx.fillStyle = '#6c757d';
+                ctx.font = '16px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(text || `${width}x${height}`, width/2, height/2);
+                return canvas.toDataURL();
+            }
+            document.querySelectorAll('img[src^="/api/placeholder/"]').forEach(img => {
+                const [width, height] = img.src.split('/').slice(-2);
+                img.src = generatePlaceholderImage(parseInt(width), parseInt(height), img.alt);
+            });
+        });
+    </script>
+</body>
+</html> 
